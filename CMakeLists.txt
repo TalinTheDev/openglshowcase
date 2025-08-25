@@ -8,6 +8,7 @@ add_executable(opengltests src/main.cpp)
 add_library(opengltestslib STATIC src/glad.c)
 
 target_include_directories(opengltestslib PUBLIC include)
+target_include_directories(opengltestslib PUBLIC src/lib)
 
 file(GLOB IMGUI imgui/*.cpp imgui/*.h imgui/backends/imgui_impl_glfw.cpp imgui/backends/imgui_impl_glfw.h
     imgui/backends/imgui_impl_opengl3.cpp imgui/backend/imgui_impl_opengl3.h)
