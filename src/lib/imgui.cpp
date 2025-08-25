@@ -1,3 +1,4 @@
+#include "tests/triangle.cpp"
 #include "types.hpp"
 #include <glm/glm.hpp>
 #include <imgui.h>
@@ -25,15 +26,25 @@ void runImGui() {
       if (BeginMenuBar()) {
         if (BeginMenu("General")) {
           Text("Clear Color: ");
-          ColorEdit4("", (float *)&state.clearColor, ImGuiColorEditFlags_Float);
+          ColorEdit4("Clear Color", (float *)&state.clearColor,
+                     ImGuiColorEditFlags_Float);
           EndMenu();
         }
         if (BeginMenu("Examples")) {
           if (ImGui::MenuItem("Reset", NULL)) {
             state.currentExample = None;
           }
-          if (ImGui::MenuItem("Triangle", NULL)) {
-            state.currentExample = Triangle;
+          if (BeginMenu("Triangle")) {
+            if (MenuItem("Toggle", NULL)) {
+              if (state.currentExample == Triangle) {
+                state.currentExample = None;
+              } else {
+                state.currentExample = Triangle;
+              }
+            }
+            ColorEdit4("Triangle Color", (float *)&triangleState.color,
+                       ImGuiColorEditFlags_Float);
+            EndMenu();
           }
           EndMenu();
         }

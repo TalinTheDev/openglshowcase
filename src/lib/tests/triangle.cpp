@@ -1,13 +1,21 @@
+#ifndef TRIANGLE_H
+#define TRIANGLE_H
+
 // clang-format off
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 // clang-format on
+#include <glm/ext.hpp>
+#include <glm/glm.hpp>
 
 bool first = true;
 GLuint shaderProgram;
 GLuint VBO, VAO;
-void triangle() {
+struct {
+  glm::vec4 color = glm::vec4(0.9f, 0.4f, 0.3f, 1.0f);
+} triangleState;
 
+void setupTriangle() {
   if (first) {
     // Vertex shader source
     const char *vertexShaderSource = R"(
@@ -24,8 +32,10 @@ void main() {
 #version 330 core
 out vec4 FragColor;
 
+uniform vec4 color;
+
 void main() {
-    FragColor = vec4(1.0, 0.5, 0.2, 1.0);
+    FragColor = color;
 }
 )";
     // Triangle vertex data
@@ -65,7 +75,17 @@ void main() {
     glDeleteShader(fragmentShader);
     first = false;
   }
+}
+
+void triangle() {
+  setupTriangle();
   glUseProgram(shaderProgram);
+
+  glUniform4f(glGetUniformLocation(shaderProgram, "color"),
+              triangleState.color.r, triangleState.color.g,
+              triangleState.color.b, triangleState.color.a);
   glBindVertexArray(VAO);
   glDrawArrays(GL_TRIANGLES, 0, 3);
 }
+
+#endif
