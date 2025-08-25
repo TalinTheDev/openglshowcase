@@ -1,10 +1,10 @@
 // clang-format off
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-// clang-format on
 #include "lib/general.cpp"
-#include "lib/imgui.cpp"
 #include "lib/input.cpp"
+#include "lib/imgui.cpp"
+// clang-format on
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>

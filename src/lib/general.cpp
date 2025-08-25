@@ -9,6 +9,7 @@
 
 const unsigned int WIDTH = 1200;
 const unsigned int HEIGHT = 700;
+bool showDebugWindow = true;
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
   glViewport(0, 0, width, height);
