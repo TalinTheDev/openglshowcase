@@ -1,8 +1,20 @@
+#include <glm/glm.hpp>
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 
 using namespace ImGui;
+
+ImGuiWindowFlags windowFlags =
+    ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize |
+    ImGuiWindowFlags_NoMove | ImGuiWindowFlags_MenuBar |
+    ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoDocking |
+    ImGuiWindowFlags_NoBackground;
+
+extern const unsigned int WIDTH;
+extern const unsigned int DEBUG_HEIGHT;
+extern bool showDebugWindow;
+extern glm::vec4 clearColor;
 
 void runImGui() {
   ImGuiIO &io = ImGui::GetIO();
@@ -11,9 +23,20 @@ void runImGui() {
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
-    if (Begin("Debug Window", nullptr, ImGuiWindowFlags_MenuBar)) {
-      Text("Application average %.3f ms/frame (%.1f FPS)",
-           1000.0f / io.Framerate, io.Framerate);
+    SetNextWindowPos(ImVec2(0, 0));
+    SetNextWindowSize(ImVec2(WIDTH, DEBUG_HEIGHT));
+    if (Begin("Debug Window", nullptr, windowFlags)) {
+      if (BeginMenuBar()) {
+        if (BeginMenu("General")) {
+          Text("Clear Color: ");
+          ColorEdit4("", (float *)&clearColor, ImGuiColorEditFlags_Float);
+          EndMenu();
+        }
+        SameLine(WIDTH - 350);
+        Text("Application average %.3f ms/frame (%.1f FPS)",
+             1000.0f / io.Framerate, io.Framerate);
+        EndMenuBar();
+      }
     }
     End();
 

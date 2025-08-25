@@ -9,10 +9,11 @@
 
 const unsigned int WIDTH = 1200;
 const unsigned int HEIGHT = 700;
+const unsigned int DEBUG_HEIGHT = 19;
 bool showDebugWindow = true;
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
-  glViewport(0, 0, width, height);
+  glViewport(0, 0, width, height - DEBUG_HEIGHT);
 }
 
 GLFWwindow *setupApplication() {
@@ -34,7 +35,7 @@ GLFWwindow *setupApplication() {
     std::cout << "Failed to initialize GLAD" << std::endl;
     return NULL;
   }
-  glViewport(0, 0, WIDTH, HEIGHT);
+  glViewport(0, 0, WIDTH, HEIGHT - DEBUG_HEIGHT);
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
   IMGUI_CHECKVERSION();

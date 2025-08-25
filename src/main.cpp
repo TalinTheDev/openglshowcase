@@ -5,9 +5,12 @@
 #include "lib/input.cpp"
 #include "lib/imgui.cpp"
 // clang-format on
+#include <glm/glm.hpp>
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
+
+glm::vec4 clearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
 int main() {
   GLFWwindow *window = setupApplication();
@@ -20,7 +23,7 @@ int main() {
     glfwPollEvents();
     processInput(window);
 
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(clearColor.r, clearColor.g, clearColor.b, clearColor.a);
     glClear(GL_COLOR_BUFFER_BIT);
 
     runImGui();
