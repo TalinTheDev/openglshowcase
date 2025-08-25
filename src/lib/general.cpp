@@ -12,6 +12,8 @@ const unsigned int HEIGHT = 700;
 const unsigned int DEBUG_HEIGHT = 19;
 bool showDebugWindow = true;
 
+enum Tests { Triangle = 1 };
+
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
   glViewport(0, 0, width, height - DEBUG_HEIGHT);
 }

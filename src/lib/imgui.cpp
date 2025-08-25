@@ -11,10 +11,11 @@ ImGuiWindowFlags windowFlags =
     ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoDocking |
     ImGuiWindowFlags_NoBackground;
 
-extern const unsigned int WIDTH;
 extern const unsigned int DEBUG_HEIGHT;
 extern bool showDebugWindow;
 extern glm::vec4 clearColor;
+extern Tests tests;
+extern Tests currentTest;
 
 void runImGui() {
   ImGuiIO &io = ImGui::GetIO();
@@ -32,6 +33,16 @@ void runImGui() {
           ColorEdit4("", (float *)&clearColor, ImGuiColorEditFlags_Float);
           EndMenu();
         }
+        if (BeginMenu("Tests")) {
+          if (ImGui::MenuItem("Reset", NULL)) {
+            currentTest = (Tests)0;
+          }
+          if (ImGui::MenuItem("Triangle", NULL)) {
+            currentTest = Tests::Triangle;
+          }
+          EndMenu();
+        }
+
         SameLine(WIDTH - 350);
         Text("Application average %.3f ms/frame (%.1f FPS)",
              1000.0f / io.Framerate, io.Framerate);
