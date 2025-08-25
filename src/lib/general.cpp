@@ -2,20 +2,14 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 // clang-format on
+#include "types.hpp"
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include <iostream>
 
-const unsigned int WIDTH = 1200;
-const unsigned int HEIGHT = 700;
-const unsigned int DEBUG_HEIGHT = 19;
-bool showDebugWindow = true;
-
-enum Tests { Triangle = 1 };
-
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
-  glViewport(0, 0, width, height - DEBUG_HEIGHT);
+  glViewport(0, 0, width, height - state.debugHeight);
 }
 
 GLFWwindow *setupApplication() {
@@ -25,7 +19,7 @@ GLFWwindow *setupApplication() {
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
   GLFWwindow *window =
-      glfwCreateWindow(WIDTH, HEIGHT, "OpenGL Tests", NULL, NULL);
+      glfwCreateWindow(state.width, state.height, "OpenGL Tests", NULL, NULL);
   if (window == NULL) {
     std::cout << "Failed to create GLFW window" << std::endl;
     glfwTerminate();
@@ -37,7 +31,7 @@ GLFWwindow *setupApplication() {
     std::cout << "Failed to initialize GLAD" << std::endl;
     return NULL;
   }
-  glViewport(0, 0, WIDTH, HEIGHT - DEBUG_HEIGHT);
+  glViewport(0, 0, state.width, state.height - state.debugHeight);
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
   IMGUI_CHECKVERSION();

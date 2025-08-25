@@ -1,3 +1,4 @@
+#include "types.hpp"
 #include <glm/glm.hpp>
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
@@ -11,39 +12,33 @@ ImGuiWindowFlags windowFlags =
     ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoDocking |
     ImGuiWindowFlags_NoBackground;
 
-extern const unsigned int DEBUG_HEIGHT;
-extern bool showDebugWindow;
-extern glm::vec4 clearColor;
-extern Tests tests;
-extern Tests currentTest;
-
 void runImGui() {
   ImGuiIO &io = ImGui::GetIO();
-  if (showDebugWindow) {
+  if (state.showDebugWindow) {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     ImGui::NewFrame();
 
     SetNextWindowPos(ImVec2(0, 0));
-    SetNextWindowSize(ImVec2(WIDTH, DEBUG_HEIGHT));
+    SetNextWindowSize(ImVec2(state.width, state.debugHeight));
     if (Begin("Debug Window", nullptr, windowFlags)) {
       if (BeginMenuBar()) {
         if (BeginMenu("General")) {
           Text("Clear Color: ");
-          ColorEdit4("", (float *)&clearColor, ImGuiColorEditFlags_Float);
+          ColorEdit4("", (float *)&state.clearColor, ImGuiColorEditFlags_Float);
           EndMenu();
         }
-        if (BeginMenu("Tests")) {
+        if (BeginMenu("Examples")) {
           if (ImGui::MenuItem("Reset", NULL)) {
-            currentTest = (Tests)0;
+            state.currentExample = None;
           }
           if (ImGui::MenuItem("Triangle", NULL)) {
-            currentTest = Tests::Triangle;
+            state.currentExample = Triangle;
           }
           EndMenu();
         }
 
-        SameLine(WIDTH - 350);
+        SameLine(state.width - 350);
         Text("Application average %.3f ms/frame (%.1f FPS)",
              1000.0f / io.Framerate, io.Framerate);
         EndMenuBar();
