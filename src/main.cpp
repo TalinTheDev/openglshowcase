@@ -1,6 +1,7 @@
 // clang-format off
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "lib/Object.hpp"
 #include "lib/types.hpp"
 #include "lib/general.cpp"
 #include "lib/imgui.cpp"
@@ -11,6 +12,8 @@
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
+#include <memory>
+#include <vector>
 
 int main() {
   GLFWwindow *window = setupApplication();
@@ -18,7 +21,8 @@ int main() {
     std::cout << "Issue setting up application" << std::endl;
     return -1;
   }
-
+  std::vector<std::unique_ptr<Object>> objects;
+  objects.push_back(std::make_unique<Object>());
   while (!glfwWindowShouldClose(window)) {
     glfwPollEvents();
     processInput(window);
@@ -28,14 +32,9 @@ int main() {
     glClear(GL_COLOR_BUFFER_BIT);
 
     runImGui();
-
-    switch (state.currentExample) {
-    case None:
-      break;
-    case Triangle:
-      triangle();
-      break;
-    };
+    for (auto &object : objects) {
+      object->render();
+    }
 
     glfwSwapBuffers(window);
   }
