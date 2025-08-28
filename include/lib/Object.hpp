@@ -3,9 +3,9 @@
 
 class Object {
 public:
-  Object();
-  ~Object();
-  void render();
+  Object() = default;
+  virtual ~Object() = default;
+  virtual void render() = 0;
 };
 
 #endif
