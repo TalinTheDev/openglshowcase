@@ -1,7 +1,8 @@
 #include "lib/Triangle.hpp"
 #include <iostream>
 
-Triangle::Triangle() {
+Triangle::Triangle(int id) {
+  this->id = id;
   state.color = glm::vec4(1.0, 1.0, 1.0, 1.0);
   // Vertex shader source
   const char *vertexShaderSource = R"(
@@ -59,7 +60,9 @@ void main() {
   glDeleteShader(fragmentShader);
 }
 
-Triangle::~Triangle() { std::cout << "Destroying triangle" << std::endl; }
+Triangle::~Triangle() {
+  std::cout << "Destroying triangle #" << id << std::endl;
+}
 
 void Triangle::render() {
   glUseProgram(shaderProgram);

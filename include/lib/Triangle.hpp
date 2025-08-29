@@ -9,11 +9,7 @@
 
 class Triangle : public Object {
 public:
-  struct {
-    glm::vec4 color;
-  } state;
-
-  Triangle();
+  Triangle(int id);
   ~Triangle();
   void render() override;
 

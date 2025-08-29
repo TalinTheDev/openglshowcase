@@ -7,6 +7,7 @@
 #include <vector>
 
 namespace ogs {
+extern unsigned int objectCounter;
 extern unsigned int width;
 extern unsigned int height;
 extern unsigned int debugHeight;

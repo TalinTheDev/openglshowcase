@@ -1,6 +1,7 @@
 #include "lib/types.hpp"
 #include <imgui.h>
 
+unsigned int ogs::objectCounter = 0;
 unsigned int ogs::width = 1200;
 unsigned int ogs::height = 700;
 unsigned int ogs::debugHeight = 19;

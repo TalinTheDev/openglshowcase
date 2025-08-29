@@ -2,7 +2,6 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 // clang-format on
-#include "lib/Triangle.hpp"
 #include "lib/general.hpp"
 #include "lib/imgui.hpp"
 #include "lib/input.hpp"
@@ -21,7 +20,6 @@ int main() {
     return -1;
   }
 
-  ogs::objects.push_back(std::make_unique<Triangle>());
   while (!glfwWindowShouldClose(window)) {
     glfwPollEvents();
     processInput(window);
