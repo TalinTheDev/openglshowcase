@@ -1,9 +1,8 @@
 // clang-format off
 #include <GLFW/glfw3.h>
 // clang-format on
-#include "types.hpp"
-
-int debugShownTime = 0;
+#include "lib/input.hpp"
+#include "lib/types.hpp"
 
 void processInput(GLFWwindow *window) {
   if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
@@ -11,9 +10,9 @@ void processInput(GLFWwindow *window) {
   }
 
   if (glfwGetKey(window, GLFW_KEY_BACKSLASH) == GLFW_PRESS &&
-      debugShownTime > 10) {
-    state.showDebugWindow = !state.showDebugWindow;
-    debugShownTime = 0;
+      ogs::debugShownTime > 10) {
+    ogs::showDebugWindow = !ogs::showDebugWindow;
+    ogs::debugShownTime = 0;
   }
-  debugShownTime++;
+  ogs::debugShownTime++;
 }

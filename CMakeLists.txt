@@ -4,7 +4,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 project(openglshowcase)
 
 add_executable(openglshowcase src/main.cpp)
-target_sources(openglshowcase PUBLIC src/Triangle.cpp src/Rectangle.cpp)
+target_sources(openglshowcase PUBLIC src/general.cpp src/imgui.cpp src/input.cpp src/types.cpp src/Triangle.cpp src/Rectangle.cpp)
 
 add_library(openglshowcaselib STATIC src/glad.c)
 
