@@ -11,6 +11,7 @@ extern unsigned int objectCounter;
 extern unsigned int width;
 extern unsigned int height;
 extern unsigned int debugHeight;
+extern unsigned int debugWidth;
 extern bool showDebugWindow;
 extern unsigned int debugShownTime;
 extern glm::vec4 clearColor;

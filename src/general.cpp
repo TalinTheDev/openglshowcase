@@ -10,7 +10,8 @@
 #include <iostream>
 
 void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
-  glViewport(0, 0, width, height - ogs::debugHeight);
+  // glViewport(0, 0, width, height - ogs::debugHeight);
+  glViewport(ogs::debugWidth, 0, width - ogs::debugWidth, height);
 }
 
 GLFWwindow *setupApplication() {
@@ -34,6 +35,7 @@ GLFWwindow *setupApplication() {
   }
   glViewport(0, 0, ogs::width, ogs::height - ogs::debugHeight);
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+  glfwSwapInterval(0); // Don't limit FPS due to VSync
 
   IMGUI_CHECKVERSION();
   ImGui::CreateContext();
