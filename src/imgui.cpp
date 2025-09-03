@@ -6,7 +6,6 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include <memory>
-#include <vector>
 
 using namespace ImGui;
 
@@ -27,8 +26,8 @@ void runImGui() {
 
       SeparatorText("Examples");
       if (MenuItem("Add Triangle", NULL)) {
-        ogs::objects.push_back(
-            std::make_unique<Triangle>(ogs::objectCounter++));
+        unsigned int id = ++ogs::objectCounter;
+        ogs::objects.insert({id, std::make_unique<Triangle>(id)});
       }
 
       SeparatorText("Objects");
@@ -41,17 +40,20 @@ void runImGui() {
           TableSetupColumn("Color");
           TableSetupColumn("Delete");
           TableHeadersRow();
-          for (auto &object : ogs::objects) {
+          for (auto object = ogs::objects.begin();
+               object != ogs::objects.end();) {
             TableNextRow();
             TableSetColumnIndex(0);
-            TextUnformatted(std::format("#{}", object->id).c_str());
+            TextUnformatted(std::format("#{}", object->first).c_str());
             TableSetColumnIndex(1);
-            ColorEdit4(std::format("#{} Color", object->id).c_str(),
-                       (float *)&object->state.color,
+            ColorEdit4(std::format("#{} Color", object->first).c_str(),
+                       (float *)&object->second->state.color,
                        ImGuiColorEditFlags_Float);
             TableSetColumnIndex(2);
-            if (Button(std::format("Delete #{}", object->id).c_str())) {
-              ogs::objects.erase(ogs::objects.begin() + object->id);
+            if (Button(std::format("Delete #{}", object->first).c_str())) {
+              object = ogs::objects.erase(object);
+            } else {
+              ++object;
             }
           }
           EndTable();

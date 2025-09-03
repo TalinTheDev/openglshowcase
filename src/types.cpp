@@ -9,7 +9,7 @@ unsigned int ogs::debugWidth = 300;
 bool ogs::showDebugWindow = true;
 unsigned int ogs::debugShownTime = 0;
 glm::vec4 ogs::clearColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
-std::vector<std::unique_ptr<Object>> ogs::objects = {};
+std::unordered_map<unsigned int, std::unique_ptr<Object>> ogs::objects = {};
 ImGuiWindowFlags ogs::windowFlags =
     ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize |
     ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar |

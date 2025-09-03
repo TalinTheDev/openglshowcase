@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 #include <imgui.h>
 #include <memory>
-#include <vector>
+#include <unordered_map>
 
 namespace ogs {
 extern unsigned int objectCounter;
@@ -15,7 +15,7 @@ extern unsigned int debugWidth;
 extern bool showDebugWindow;
 extern unsigned int debugShownTime;
 extern glm::vec4 clearColor;
-extern std::vector<std::unique_ptr<Object>> objects;
+extern std::unordered_map<unsigned int, std::unique_ptr<Object>> objects;
 extern ImGuiWindowFlags windowFlags;
 }; // namespace ogs
 

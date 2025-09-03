@@ -30,7 +30,7 @@ int main() {
 
     runImGui();
     for (auto &object : ogs::objects) {
-      object->render();
+      object.second->render();
     }
 
     glfwSwapBuffers(window);
