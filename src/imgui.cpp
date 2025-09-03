@@ -47,7 +47,7 @@ void runImGui() {
             TextUnformatted(std::format("#{}", object->first).c_str());
             TableSetColumnIndex(1);
             ColorEdit4(std::format("#{} Color", object->first).c_str(),
-                       (float *)&object->second->state.color,
+                       (float *)object->second->state["color"].get(),
                        ImGuiColorEditFlags_Float);
             TableSetColumnIndex(2);
             if (Button(std::format("Delete #{}", object->first).c_str())) {

@@ -1,9 +1,11 @@
 #include "lib/Triangle.hpp"
 #include <iostream>
+#include <memory>
 
 Triangle::Triangle(int id) {
   this->id = id;
-  state.color = glm::vec4(1.0, 1.0, 1.0, 1.0);
+  this->state.insert(
+      {"color", std::make_unique<glm::vec4>(1.0, 1.0, 1.0, 1.0)});
   // Vertex shader source
   const char *vertexShaderSource = R"(
 #version 330 core
@@ -66,8 +68,9 @@ Triangle::~Triangle() {
 
 void Triangle::render() {
   glUseProgram(shaderProgram);
-  glUniform4f(glGetUniformLocation(shaderProgram, "color"), state.color.r,
-              state.color.g, state.color.b, state.color.a);
+  glUniform4f(glGetUniformLocation(shaderProgram, "color"),
+              this->state["color"]->r, this->state["color"]->g,
+              this->state["color"]->b, this->state["color"]->a);
   glBindVertexArray(VAO);
   glDrawArrays(GL_TRIANGLES, 0, 3);
 }
