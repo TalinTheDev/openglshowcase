@@ -32,6 +32,9 @@ int main() {
     for (auto &object : ogs::objects) {
       object.second->render();
     }
+    for (auto &system : ogs::systems) {
+      system.second->run();
+    }
 
     glfwSwapBuffers(window);
   }

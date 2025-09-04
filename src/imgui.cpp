@@ -1,3 +1,4 @@
+#include "lib/Camera.hpp"
 #include "lib/Triangle.hpp"
 #include "lib/types.hpp"
 #include <format>
@@ -24,10 +25,16 @@ void runImGui() {
       ColorEdit4("Clear Color", (float *)&ogs::clearColor,
                  ImGuiColorEditFlags_Float);
 
-      SeparatorText("Examples");
+      SeparatorText("Example Objects");
       if (MenuItem("Add Triangle", NULL)) {
         unsigned int id = ++ogs::objectCounter;
         ogs::objects.insert({id, std::make_unique<Triangle>(id)});
+      }
+
+      SeparatorText("Example Systems");
+      if (MenuItem("Add Camera", NULL)) {
+        unsigned int id = ++ogs::systemCounter;
+        ogs::systems.insert({id, std::make_unique<Camera>(id)});
       }
 
       SeparatorText("Objects");
@@ -60,6 +67,30 @@ void runImGui() {
         }
       }
 
+      SeparatorText("Systems");
+      if (ogs::systems.empty()) {
+        Text("Zero Systems in Scene");
+      }
+      if (!ogs::systems.empty()) {
+        if (BeginTable("Systems", 2, 0)) {
+          TableSetupColumn("ID");
+          TableSetupColumn("Delete");
+          TableHeadersRow();
+          for (auto system = ogs::systems.begin();
+               system != ogs::systems.end();) {
+            TableNextRow();
+            TableSetColumnIndex(0);
+            TextUnformatted(std::format("#{}", system->first).c_str());
+            TableSetColumnIndex(1);
+            if (Button(std::format("Delete #{}", system->first).c_str())) {
+              system = ogs::systems.erase(system);
+            } else {
+              ++system;
+            }
+          }
+          EndTable();
+        }
+      }
       SeparatorText("Debug Info");
       Text(" %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
     }

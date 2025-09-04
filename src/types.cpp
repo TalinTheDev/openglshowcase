@@ -2,6 +2,7 @@
 #include <imgui.h>
 
 unsigned int ogs::objectCounter = 0;
+unsigned int ogs::systemCounter = 0;
 unsigned int ogs::width = 1200;
 unsigned int ogs::height = 700;
 unsigned int ogs::debugHeight = 19;
@@ -10,6 +11,7 @@ bool ogs::showDebugWindow = true;
 unsigned int ogs::debugShownTime = 0;
 glm::vec4 ogs::clearColor = glm::vec4(0.0f, 0.0f, 0.0f, 1.0f);
 std::unordered_map<unsigned int, std::unique_ptr<Object>> ogs::objects = {};
+std::unordered_map<unsigned int, std::unique_ptr<System>> ogs::systems = {};
 ImGuiWindowFlags ogs::windowFlags =
     ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize |
     ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoScrollbar |

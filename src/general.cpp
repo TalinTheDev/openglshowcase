@@ -35,7 +35,7 @@ GLFWwindow *setupApplication() {
   }
   glViewport(0, 0, ogs::width, ogs::height - ogs::debugHeight);
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-  glfwSwapInterval(0); // Don't limit FPS due to VSync
+  glfwSwapInterval(1); // Explicitly enable VSync
 
   IMGUI_CHECKVERSION();
   ImGui::CreateContext();
